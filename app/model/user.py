@@ -7,4 +7,4 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    created_at = Column(TIMESTAMP(timezone=True), server_default=text("now"))
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"))
