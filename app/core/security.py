@@ -6,7 +6,6 @@ from .config import setting
 
 password_hash = PasswordHash.recommended()
 
-
 DUMMY_HASH = password_hash.hash("dummy")
 
 
@@ -19,7 +18,7 @@ def get_password_hash(password):
 
 
 def create_access_token(data: dict, expire_delta: timedelta | None = None):
-    to_encode = data.copy
+    to_encode = data.copy()
     if expire_delta:
         expire = datetime.now(timezone.utc) + expire_delta
     else:

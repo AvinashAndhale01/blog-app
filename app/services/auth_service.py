@@ -15,8 +15,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
 def get_user(email: str, session: Session):
-    user = session.query(User).filter(email == User.email)
-    return user
+    return session.query(User).filter(email == User.email).first()
 
 
 def authenticate_user(session: Session, email: str, password: str):
