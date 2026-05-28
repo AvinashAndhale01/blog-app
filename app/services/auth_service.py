@@ -28,7 +28,7 @@ def authenticate_user(session: Session, email: str, password: str):
     return user
 
 
-def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], session: SessionDep):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -39,10 +39,10 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         email = payload.get("sub")
         if email is None:
             raise credentials_exception
-        token_data = TokenData(email)
+        token_data = TokenData(email=email)
     except InvalidTokenError:
         raise credentials_exception
-    user = get_user(token_data.email, SessionDep)
+    user = get_user(token_data.email, session)
     if user is None:
         raise credentials_exception
     return user

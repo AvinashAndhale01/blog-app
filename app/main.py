@@ -3,6 +3,7 @@ from app.core.db import Base, engine
 from app.routes import posts
 from app.routes import auth
 from contextlib import asynccontextmanager
+from app.model import User, Post
 
 
 @asynccontextmanager
