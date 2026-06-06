@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from app.core.db import Base, engine
-from app.routes import posts
-from app.routes import auth
+from app.routes import comment, posts, auth
 from contextlib import asynccontextmanager
-from app.model import User, Post
+from app.model import User, Post, Comment
 
 
 @asynccontextmanager
@@ -23,3 +22,4 @@ def status():
 
 app.include_router(posts.router)
 app.include_router(auth.router)
+app.include_router(comment.router)

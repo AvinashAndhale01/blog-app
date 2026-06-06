@@ -9,4 +9,6 @@ class User(Base):
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"))
+
     posts = relationship("Post", back_populates="owner", cascade="all, delete")
+    comments = relationship("Comment", back_populates="owner", cascade="all, delete")

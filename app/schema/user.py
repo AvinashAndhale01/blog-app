@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 
@@ -14,3 +14,5 @@ class UserCreate(UserBase):
 class UserPublic(UserBase):
     id: int
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)

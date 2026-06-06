@@ -11,6 +11,7 @@ router = APIRouter(prefix="/blogs", tags=["blogs"])
 def create_blog(post: PostCreate, session: SessionDep, current_user: User = Depends(get_current_user)):
     db_post = Post(**post.model_dump())
     db_post.user_id = current_user.id
+    db_post.author = current_user.name
     session.add(db_post)
     session.commit()
     session.refresh(db_post)
