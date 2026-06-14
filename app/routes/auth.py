@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from app.model.user import User
-from app.schema.user import UserCreate, UserPublic
+from app.schema.user import LoginRequest, UserCreate, UserPublic
 from app.schema.auth import Token
 from app.dependencies import SessionDep
 from app.core.security import get_password_hash, create_access_token
@@ -28,7 +28,7 @@ def create_user(user: UserCreate, session: SessionDep):
 
 
 @router.post("/login", response_model=Token)
-def login(session: SessionDep, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+def login(session: SessionDep, form_data: LoginRequest):
     user = authenticate_user(session, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -39,4 +39,3 @@ def login(session: SessionDep, form_data: Annotated[OAuth2PasswordRequestForm, D
     access_token_expire = timedelta(minutes=setting.access_token_expire_minutes)
     access_token = create_access_token(data={"sub": user.email}, expire_delta=access_token_expire)
     return Token(access_token=access_token, token_type="bearer")
-    

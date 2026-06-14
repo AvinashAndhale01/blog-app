@@ -16,3 +16,7 @@ class UserPublic(UserBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str

@@ -15,3 +15,8 @@ class PostPublic(PostBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class PostUpdate(BaseModel):
+    
+    title: str | None = None
+    description: str | None = None
